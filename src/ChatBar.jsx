@@ -14,6 +14,7 @@ class ChatBar extends Component {
       type: 'incomingMessage'
     }
 
+    event.target.elements.content.value ='';
     this.props.submitMessage(newMessage);
 }
 
