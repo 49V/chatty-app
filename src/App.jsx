@@ -15,6 +15,7 @@ class App extends Component {
 
   addNewMessage = (newMessage) => {
     this.setState({
+      currentUser: newMessage.currentUser,
       messages: [...this.state.messages, newMessage]
     });
   }

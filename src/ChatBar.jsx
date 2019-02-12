@@ -4,13 +4,12 @@ class ChatBar extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    //this.props.currentUser
-    const username = (event.target.elements.username.value === "") ? "Anon" : event.target.elements.username.value;
+    const currentUser = (event.target.elements.username.value === "") ? "Anon" : event.target.elements.username.value;
     const content = event.target.elements.content.value;
 
     const newMessage = {
       content,
-      username,
+      currentUser,
       type: 'incomingMessage'
     }
 
