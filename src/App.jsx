@@ -30,6 +30,10 @@ class App extends Component {
     })
   }
 
+  componentDidMount() {
+    this.socket = new WebSocket('ws://localhost:3001');
+  }
+
   render() {
     return (
       <div>

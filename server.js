@@ -17,3 +17,25 @@ new WebpackDevServer(webpack(config), {
 
     console.log('Running at http://0.0.0.0:3000');
   });
+
+const express = require('express');
+const SocketServer = require('ws').Server;
+
+const PORT = 3001;
+
+//Create a new express server
+const server = express()
+  .use(express.static('public'))
+  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
+
+// Create a new WebSockets server using the Express server
+const wss = new SocketServer({ server });
+
+// Set up a callback that will run when a client connects to the server
+// When a client connects they are assigned a socket, represented by
+// the ws parameter in the callback.
+wss.on('connection', (ws) => {
+  console.log('Client Connected');
+
+  ws.on('close', () => console.log('Client disconnected'));
+});
