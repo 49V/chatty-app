@@ -9,31 +9,28 @@ class App extends Component {
     this.state =
       {
         currentUser: "Anon",
-        messages: [
-          {
-            type: 'incomingMessage',
-            content: 'Test Message',
-            username: 'Testi Boi'
-          },
-          {
-            type: 'notification',
-            content: 'Noti',
-            username: 'Notification Guy'
-          }
-        ]
-      }
+        messages: []
+      };
   }
 
   addNewMessage = (newMessage) => {
     this.setState({
       messages: [...this.state.messages, newMessage]
     });
+  }
 
+  submitMessage = (newMessage) => {
     this.socket.send(JSON.stringify(newMessage));
+    this.addNewMessage(newMessage);
   }
 
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
+  
+    this.socket.onmessage = (event) => {
+      const newMessage = JSON.parse(event.data);
+      this.addNewMessage(newMessage);
+    }  
   }
 
   render() {
@@ -43,7 +40,7 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
         </main>
         <footer className="chatbar">
-          <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} />
+          <ChatBar currentUser={this.state.currentUser} submitMessage={this.submitMessage} />
         </footer>
       </div>
     );

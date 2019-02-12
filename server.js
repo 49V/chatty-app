@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
+const uuidv1 = require('uuid/v1');
+const WebSocket = require('ws');
 
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -40,9 +42,15 @@ wss.on('connection', (ws) => {
   ws.on('close', () => console.log('Client disconnected'));
 
   ws.on('message', function incoming(data) {
-    console.log("Received Message");
-    const formattedData = JSON.parse(data);
-    console.log(formattedData);
+    let formattedData = JSON.parse(data);
+    const uuid = uuidv1();
+    formattedData.id = uuid;
+
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(formattedData));
+      }
+    });
   });
 
 });
