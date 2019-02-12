@@ -27,7 +27,9 @@ class App extends Component {
   addNewMessage = (newMessage) => {
     this.setState({
       messages: [...this.state.messages, newMessage]
-    })
+    });
+
+    this.socket.send(JSON.stringify(newMessage));
   }
 
   componentDidMount() {

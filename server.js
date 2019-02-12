@@ -38,4 +38,12 @@ wss.on('connection', (ws) => {
   console.log('Client Connected');
 
   ws.on('close', () => console.log('Client disconnected'));
+
+  ws.on('message', function incoming(data) {
+    console.log("Received Message");
+    const formattedData = JSON.parse(data);
+    console.log(formattedData);
+  });
+
 });
+
