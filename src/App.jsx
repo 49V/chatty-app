@@ -23,8 +23,10 @@ class App extends Component {
       }
   }
 
-  addNewMessage() {
-    /* TO IMPLEMENT */
+  addNewMessage = (newMessage) => {
+    this.setState({
+      messages: [...this.state.messages, newMessage]
+    })
   }
 
   render() {

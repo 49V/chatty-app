@@ -7,8 +7,13 @@ class ChatBar extends Component {
     const username = event.target.elements.username.value;
     const content = event.target.elements.content.value;
 
-    // TODO: ADD NEW MESSAGE
-    //this.props.addNewMessage(newMessage)
+    const newMessage = {
+      content,
+      username,
+      type: 'incomingMessage'
+    }
+
+    this.props.addNewMessage(newMessage);
 }
 
   render() {
