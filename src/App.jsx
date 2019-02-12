@@ -8,6 +8,7 @@ class App extends Component {
     super();
     this.state =
       {
+        currentUser: "Anon",
         messages: [
           {
             type: 'incomingMessage',
@@ -36,7 +37,7 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
         </main>
         <footer className="chatbar">
-          <ChatBar addNewMessage={this.addNewMessage} />
+          <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} />
         </footer>
       </div>
     );
