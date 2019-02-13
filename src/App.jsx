@@ -20,6 +20,12 @@ class App extends Component {
     });
   }
 
+  changeName = (name) => {
+    this.setState({
+      currentUser: name
+    });
+  } 
+
   submitMessage = (newMessage) => {
     this.socket.send(JSON.stringify(newMessage));
     this.addNewMessage(newMessage);
@@ -41,7 +47,7 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
         </main>
         <footer className="chatbar">
-          <ChatBar currentUser={this.state.currentUser} submitMessage={this.submitMessage} />
+          <ChatBar currentUser={this.state.currentUser} changeName={this.changeName} submitMessage={this.submitMessage} />
         </footer>
       </div>
     );
