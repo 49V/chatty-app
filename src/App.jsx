@@ -20,23 +20,39 @@ class App extends Component {
     });
   }
 
-  changeName = (name) => {
+  addNewNotification = (newNotification) => {
     this.setState({
-      currentUser: name
+      currentUser: newNotification.currentUser,
+      messages: [...this.state.messages, newNotification]
     });
   } 
 
   submitMessage = (newMessage) => {
     this.socket.send(JSON.stringify(newMessage));
-    this.addNewMessage(newMessage);
+  }
+
+  submitNotification = (newNotification) => {
+    this.socket.send(JSON.stringify(newNotification));
   }
 
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
   
     this.socket.onmessage = (event) => {
-      const newMessage = JSON.parse(event.data);
-      this.addNewMessage(newMessage);
+      const data = JSON.parse(event.data);
+
+      switch(data.type) {
+        case 'incomingMessage':
+          console.log("Client taking message")
+          this.addNewMessage(data);
+          break;
+        case 'incomingNotification':
+        console.log("Client taking notification")
+          this.addNewNotification(data);
+          break;
+        default:
+          console.log("ERROR");
+      }   
     }  
   }
 
@@ -47,7 +63,7 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
         </main>
         <footer className="chatbar">
-          <ChatBar currentUser={this.state.currentUser} changeName={this.changeName} submitMessage={this.submitMessage} />
+          <ChatBar currentUser={this.state.currentUser} submitMessage={this.submitMessage} submitNotification={this.submitNotification} />
         </footer>
       </div>
     );

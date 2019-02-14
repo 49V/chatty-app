@@ -45,9 +45,15 @@ wss.on('connection', (ws) => {
     let formattedData = JSON.parse(data);
     const uuid = uuidv1();
     formattedData.id = uuid;
+    
+    if(formattedData.type === 'postMessage') {
+      formattedData.type = 'incomingMessage';
+    } else {
+      formattedData.type = 'incomingNotification';
+    }
 
     wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+      if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(formattedData));
       }
     });
