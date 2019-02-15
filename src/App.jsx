@@ -9,20 +9,19 @@ class App extends Component {
     this.state =
       {
         currentUser: "Anon",
+        previousUser: "Anon",
         messages: []
       };
   }
 
   addNewMessage = (newMessage) => {
     this.setState({
-      currentUser: newMessage.currentUser,
       messages: [...this.state.messages, newMessage]
     });
   }
 
   addNewNotification = (newNotification) => {
     this.setState({
-      currentUser: newNotification.currentUser,
       messages: [...this.state.messages, newNotification]
     });
   } 
@@ -33,6 +32,14 @@ class App extends Component {
 
   submitNotification = (newNotification) => {
     this.socket.send(JSON.stringify(newNotification));
+  }
+
+  updateUser = (newName) => {
+    const previousUser = this.state.currentUser;
+    this.setState({
+      currentUser: newName,
+      previousUser
+    });
   }
 
   componentDidMount() {
@@ -63,7 +70,7 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
         </main>
         <footer className="chatbar">
-          <ChatBar currentUser={this.state.currentUser} submitMessage={this.submitMessage} submitNotification={this.submitNotification} />
+          <ChatBar updateUser={this.updateUser} currentUser={this.state.currentUser} submitMessage={this.submitMessage} submitNotification={this.submitNotification} />
         </footer>
       </div>
     );

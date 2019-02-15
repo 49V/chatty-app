@@ -6,10 +6,13 @@ class ChatBar extends Component {
     event.preventDefault();
     const currentUser = (event.target.elements.username.value === "") ? "Anon" : event.target.elements.username.value;
     const content = event.target.elements.content.value;
+    const previousUser = this.props.previousUser;
+    //Update previous user as well.
 
     const newMessage = {
       content,
       currentUser,
+      previousUser,
       type: 'postMessage'
     }
 
@@ -21,9 +24,13 @@ class ChatBar extends Component {
     if(event.key === 'Enter') {
       event.preventDefault();    
       const newName = event.target.value;
+      const previousUser = this.props.currentUser;
+
+      this.props.updateUser(newName);
 
       const newNotification = {
         currentUser: newName,
+        previousUser,
         type: 'postNotification'
       }
 
