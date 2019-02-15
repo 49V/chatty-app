@@ -10,5 +10,4 @@ const Notification = ({currentUser, previousUser}) => {
     );
 }
 
-
 export default Notification;

@@ -57,18 +57,15 @@ class App extends Component {
 
       switch(data.type) {
         case 'incomingMessage':
-          console.log("Client taking message")
           this.addNewMessage(data);
           break;
         case 'incomingNotification':
-          console.log("Client taking notification")
           this.addNewNotification(data);
           break;
         case 'userCount':
           this.updateUserCount(data.userCount)
           break;
         default:
-          console.log("ERROR");
       }   
     }  
   }

@@ -7,7 +7,6 @@ class ChatBar extends Component {
     const currentUser = (event.target.elements.username.value === "") ? "Anon" : event.target.elements.username.value;
     const content = event.target.elements.content.value;
     const previousUser = this.props.previousUser;
-    //Update previous user as well.
 
     const newMessage = {
       content,
