@@ -32,14 +32,23 @@ const server = express()
 
 // Create a new WebSockets server using the Express server
 const wss = new SocketServer({ server });
+let clientCount = 0;
 
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client Connected');
+  clientCount++;
 
-  ws.on('close', () => console.log('Client disconnected'));
+  updateClientCount(wss, clientCount);
+
+  ws.on('close', () => {
+    clientCount--;
+    updateClientCount(wss, clientCount);
+    console.log('Client disconnected')
+  });
+  
 
   ws.on('message', function incoming(data) {
     let formattedData = JSON.parse(data);
@@ -61,3 +70,16 @@ wss.on('connection', (ws) => {
 
 });
 
+// Need to broadcast to clients so they can update their counts
+function updateClientCount(webSocketServer, count) {
+  webSocketServer.clients.forEach(function each(client) {
+  const serverProgress = {
+    type: "userCount",
+    userCount: count
+  };
+
+  if (client.readyState === WebSocket.OPEN) {
+    client.send(JSON.stringify(serverProgress));
+  }
+});
+}

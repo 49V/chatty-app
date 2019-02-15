@@ -10,7 +10,8 @@ class App extends Component {
       {
         currentUser: "Anon",
         previousUser: "Anon",
-        messages: []
+        messages: [],
+        userCount: 0
       };
   }
 
@@ -42,6 +43,12 @@ class App extends Component {
     });
   }
 
+  updateUserCount = (newCount) => {
+    this.setState({
+      userCount: newCount
+    });
+  }
+
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
   
@@ -54,8 +61,11 @@ class App extends Component {
           this.addNewMessage(data);
           break;
         case 'incomingNotification':
-        console.log("Client taking notification")
+          console.log("Client taking notification")
           this.addNewNotification(data);
+          break;
+        case 'userCount':
+          this.updateUserCount(data.userCount)
           break;
         default:
           console.log("ERROR");
@@ -65,7 +75,12 @@ class App extends Component {
 
   render() {
     return (
+      
       <div>
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <span className="navbar-userCount">User Count: {this.state.userCount}</span>
+        </nav>
         <main className="messages">
           <MessageList messages={this.state.messages} />
         </main>
