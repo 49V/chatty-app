@@ -21,5 +21,5 @@ A simple live chat app that uses React, Node.js, and WebSockets to allow for mul
 
 ### Screenshots
 
-![Chatty](https://github.com/49V/chatty-app/blob/master/docs/chatty.png?raw=true_)
+![Chatty](https://github.com/49V/chatty-app/blob/master/docs/chatty-updated.png?raw=true_)
 
