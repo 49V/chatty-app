@@ -1,7 +1,7 @@
 Chatty
 =====================
 
-A simple live Chat App!
+A simple live chat app that uses React, Node.js, and WebSockets to allow for multiple users to communicate.
 
 ### Dependencies
 
