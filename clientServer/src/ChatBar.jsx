@@ -40,9 +40,9 @@ class ChatBar extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" name="username" onKeyDown={this.handleNameChange} defaultValue={this.props.currentUser} />
-        <input type="text" name="content" placeholder="Type a message and hit ENTER" />
-        <button type="submit">Send Message</button>
+        <input id="username" type="text" name="username" onKeyDown={this.handleNameChange} defaultValue={this.props.currentUser} />
+        <input id="message" type="text" name="content" placeholder="Press ENTER to send a message" />
+        <button id="send-button" type="submit"><i className="far fa-paper-plane"></i></button>
       </form>
     );
   }

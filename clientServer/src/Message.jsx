@@ -3,8 +3,8 @@ import React from 'react';
 const Message = ({ content, currentUser, type }) => {  
   return (
   <div>
-    <span className="message-username">{currentUser}</span>
-    <span className="message-content">{content}</span>
+    <div className="message-username">{currentUser}</div>
+    <div className="message-content">{content}</div>
   </div>
   );
 }

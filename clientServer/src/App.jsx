@@ -74,8 +74,8 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <span className="navbar-userCount">User Count: {this.state.userCount}</span>
+          <a href="/" className="navbar-brand">🅲🅷🅰🆃🆃🆈</a>
+          <span className="navbar-userCount"><i className="far fa-user"></i> Online: {this.state.userCount}</span>
         </nav>
         <main className="messages">
           <MessageList messages={this.state.messages} />
