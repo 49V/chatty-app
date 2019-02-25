@@ -47,11 +47,14 @@ form {
 
   #username {
     float: left;
+    font-weight: bold;
     width: 15%;
   }
 
   #message{
+    color: #ffc000;
     float: left;
+    font-weight: bold;
     width: 50%;
   }
 
@@ -96,8 +99,12 @@ form {
   font-weight: 700;
 }
 
-.notification * {
-  color: #ffc000;
+.notification {
+  margin: 15px 0px;
+
+  * {
+    color: #ffc000;
+  }
 }
 
 .navbar {
